@@ -1,0 +1,83 @@
+.employees-container {
+  padding: 20px;
+}
+
+.employees-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 20px;
+}
+
+.employees-header h2 {
+  font-size: 24px;
+  font-weight: bold;
+  color: var(--text-color);
+}
+
+.add-employee-btn {
+  background-color: var(--primary-color);
+  color: black;
+  border: none;
+  padding: 10px 20px;
+  border-radius: 5px;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+}
+
+.add-employee-btn:hover {
+  background-color: var(--primary-color-dark);
+}
+
+.table-container {
+  background-color: var(--card-background);
+  border-radius: 10px;
+  box-shadow: var(--card-shadow);
+  overflow: hidden;
+}
+
+table {
+  width: 100%;
+  border-collapse: collapse;
+}
+
+thead {
+  background-color: var(--primary-color);
+  color: black;
+}
+
+th, td {
+  padding: 15px;
+  text-align: left;
+  border-bottom: 1px solid var(--sidebar-active-link);
+}
+
+tbody tr:nth-child(even) {
+  background-color: var(--sidebar-active-link);
+}
+
+.action-btn {
+  background-color: var(--sidebar-active-link);
+  border: 1px solid var(--primary-color);
+  color: var(--primary-color);
+  padding: 5px 10px;
+  border-radius: 5px;
+  cursor: pointer;
+  margin-right: 5px;
+  transition: background-color 0.3s ease;
+}
+
+.action-btn:hover {
+  background-color: var(--primary-color);
+  color: black;
+}
+
+.delete-btn {
+  background-color: #ffcdd2;
+  color: #c62828;
+  border: 1px solid #c62828;
+}
+
+.delete-btn:hover {
+  background-color: #ef9a9a;
+}

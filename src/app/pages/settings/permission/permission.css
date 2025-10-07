@@ -1,0 +1,86 @@
+:host {
+  /* Local variables removed, using global theme from styles.css */
+}
+
+.permission-container {
+  padding: 2rem;
+}
+
+h2 {
+  font-size: 1.75rem;
+  font-weight: 600;
+  color: var(--primary-color); /* Use theme primary color */
+  margin-bottom: 1.5rem;
+}
+
+.table-container {
+  overflow: hidden;
+  border: 1px solid var(--sidebar-active-link); /* Use theme border color */
+  border-radius: 10px;
+  background-color: var(--card-background);
+  box-shadow: var(--card-shadow);
+}
+
+table {
+  width: 100%;
+  border-collapse: collapse;
+}
+
+th, td {
+  padding: 1rem;
+  text-align: center;
+  border-bottom: 1px solid var(--sidebar-active-link); /* Use theme border color */
+}
+
+tr:last-child td {
+    border-bottom: none;
+}
+
+thead th {
+  background-color: var(--primary-color); /* Use theme primary color */
+  color: black; /* Text color for readability on yellow */
+  font-weight: bold;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+}
+
+/* Style for the first column (Role names) */
+td:first-child {
+  background-color: var(--sidebar-active-link);
+  font-weight: 600;
+  text-align: left;
+  color: var(--text-color);
+}
+
+/* Remove alternating row color for a cleaner look */
+tbody tr:nth-child(even) {
+  background-color: transparent;
+}
+
+input[type="checkbox"] {
+  width: 20px;
+  height: 20px;
+  cursor: pointer;
+  accent-color: var(--primary-color);
+}
+
+.update-button-container {
+  display: flex;
+  justify-content: flex-end;
+  margin-top: 1.5rem;
+}
+
+.update-btn {
+  background-color: var(--primary-color);
+  color: black;
+  border: none;
+  padding: 10px 20px;
+  border-radius: 5px;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+  font-weight: 600;
+}
+
+.update-btn:hover {
+  background-color: var(--primary-color-dark);
+}

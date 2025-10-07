@@ -1,0 +1,31 @@
+<div class="schedule-container">
+  <div class="schedule-header">
+    <button (click)="previousMonth()" class="nav-btn">&lt;</button>
+    <h2>{{ currentMonth() | date:'MMMM yyyy' }}</h2>
+    <button (click)="nextMonth()" class="nav-btn">&gt;</button>
+    <div class="actions-container">
+      <input type="file" (change)="onFileChange($event)" #fileInput hidden>
+      <button (click)="fileInput.click()" class="import-btn">Import Schedule</button>
+      <button (click)="exportSchedule()" class="export-btn">Export Schedule</button>
+    </div>
+  </div>
+  <div class="calendar-container">
+    <div class="calendar-header">
+      @for (day of daysOfWeek; track day) {
+        <div class="day">{{ day }}</div>
+      }
+    </div>
+    <div class="calendar-grid">
+      @for (day of calendarDays(); track day.date) {
+        <div class="calendar-day" [class.other-month]="!day.isCurrentMonth">
+          <span class="day-number">{{ day.date | date:'d' }}</span>
+          <div class="employees-list">
+            @for (employee of day.employees; track employee) {
+              <div class="employee">{{ employee }}</div>
+            }
+          </div>
+        </div>
+      }
+    </div>
+  </div>
+</div>

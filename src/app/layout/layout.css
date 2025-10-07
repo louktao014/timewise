@@ -1,0 +1,121 @@
+.layout-container {
+  display: flex;
+  height: 100vh;
+}
+
+.sidebar {
+  width: 250px;
+  background-color: var(--sidebar-background);
+  color: var(--sidebar-text-color);
+  display: flex;
+  flex-direction: column;
+  padding: 20px;
+  transition: width 0.3s ease;
+}
+
+.sidebar-header {
+  margin-bottom: 30px;
+}
+
+.sidebar-title {
+  font-size: 24px;
+  font-weight: bold;
+  text-align: center;
+  color: var(--primary-color);
+}
+
+.sidebar-nav a {
+  display: flex;
+  align-items: center;
+  color: var(--sidebar-text-color);
+  text-decoration: none;
+  padding: 15px;
+  border-radius: 5px;
+  margin-bottom: 10px;
+  transition: background-color 0.3s ease;
+}
+
+.sidebar-nav a:hover,
+.sidebar-nav a.active {
+  background-color: var(--sidebar-active-link);
+  color: var(--primary-color);
+}
+
+.sidebar-nav a svg {
+  margin-right: 15px;
+  fill: var(--primary-color);
+}
+
+.main-content {
+  flex: 1;
+  background-color: var(--background-color);
+  display: flex;
+  flex-direction: column;
+  overflow-y: auto;
+}
+
+.header {
+  background-color: var(--card-background);
+  padding: 20px;
+  border-bottom: 1px solid var(--sidebar-active-link);
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.header-title {
+  font-size: 28px;
+  font-weight: bold;
+  color: var(--text-color);
+}
+
+.user-info {
+  display: flex;
+  align-items: center;
+}
+
+.user-info span {
+  margin-right: 10px;
+  font-weight: 500;
+}
+
+.avatar {
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  margin-right: 10px;
+}
+
+.logout-button {
+  background-color: transparent;
+  border: 1px solid var(--primary-color);
+  color: var(--primary-color);
+  padding: 8px 16px;
+  border-radius: 5px;
+  cursor: pointer;
+  transition: background-color 0.3s ease, color 0.3s ease;
+}
+
+.logout-button:hover {
+  background-color: var(--primary-color);
+  color: white;
+}
+
+.content-wrapper {
+  padding: 20px;
+}
+
+@media (max-width: 768px) {
+  .sidebar {
+    width: 70px;
+  }
+
+  .sidebar-title,
+  .sidebar-nav span {
+    display: none;
+  }
+
+  .sidebar-nav a {
+    justify-content: center;
+  }
+}

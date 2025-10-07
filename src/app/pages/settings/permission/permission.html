@@ -1,0 +1,33 @@
+<div class="permission-container">
+  <h2>Role Permissions</h2>
+  <div class="table-container">
+    <table>
+      <thead>
+        <tr>
+          <th>Role</th>
+          @for(permission of permissionKeys; track permission) {
+            <th>{{ permission }}</th>
+          }
+        </tr>
+      </thead>
+      <tbody>
+        @for(role of roles(); track role.name) {
+          <tr>
+            <td>{{ role.name }}</td>
+            @for(permission of permissionKeys; track permission) {
+              <td>
+                <input 
+                  type="checkbox" 
+                  [checked]="role.permissions[permission]" 
+                  (change)="togglePermission(role.name, permission)">
+              </td>
+            }
+          </tr>
+        }
+      </tbody>
+    </table>
+  </div>
+  <div class="update-button-container">
+    <button class="update-btn">Update Permissions</button>
+  </div>
+</div>

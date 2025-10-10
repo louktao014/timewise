@@ -27,7 +27,7 @@ Timewise is a modern, intuitive, and visually appealing employee management appl
 
 ## Layout
 
-The application features a responsive sidebar navigation and a main content area. The sidebar provides links to the main pages of the application, and the main content area displays the content of the currently active page.
+The application features a responsive sidebar navigation and a main content area. All pages, including the complex tables in the settings area, are designed to be responsive and adapt to different screen sizes. The sidebar provides links to the main pages of the application, and the main content area displays the content of the currently active page.
 
 ### Header
 
@@ -75,7 +75,7 @@ The payroll page displays a list of payrolls and allows the user to view the det
 
 ## Settings
 
-The settings page provides a tabbed interface for managing application settings. The following tabs are available:
+The settings page provides a tabbed interface for managing application settings. It is designed to be fully responsive. On smaller screens, the tabbed navigation stacks vertically for improved usability. The content within each tab, such as the permissions table, is also optimized for smaller viewports with horizontal scrolling for wider tables. The following tabs are available:
 
 *   **Permission**: Manages user roles and their permissions.
 

@@ -14,7 +14,7 @@ h2 {
 }
 
 .table-container {
-  overflow: hidden;
+  overflow-x: auto;
   border: 1px solid var(--sidebar-active-link); /* Use theme border color */
   border-radius: 10px;
   background-color: var(--card-background);
@@ -30,6 +30,7 @@ th, td {
   padding: 1rem;
   text-align: center;
   border-bottom: 1px solid var(--sidebar-active-link); /* Use theme border color */
+  white-space: nowrap; /* Prevent line breaks */
 }
 
 tr:last-child td {
@@ -50,6 +51,9 @@ td:first-child {
   font-weight: 600;
   text-align: left;
   color: var(--text-color);
+  position: sticky;
+  left: 0;
+  z-index: 1;
 }
 
 /* Remove alternating row color for a cleaner look */
@@ -83,4 +87,23 @@ input[type="checkbox"] {
 
 .update-btn:hover {
   background-color: var(--primary-color-dark);
+}
+
+@media (max-width: 768px) {
+  .permission-container {
+    padding: 1rem;
+  }
+
+  h2 {
+    font-size: 1.5rem;
+  }
+
+  .update-button-container {
+    justify-content: center;
+  }
+
+  .update-btn {
+    width: 100%;
+    padding: 12px;
+  }
 }

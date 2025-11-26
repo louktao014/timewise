@@ -1,14 +1,20 @@
 .time-off-container {
-  display: grid;
+  /* display: grid;
+  grid-template-columns: 1fr 2fr;
+  gap: 2rem;
+  padding: 2rem; */
+  display: flex;
   grid-template-columns: 1fr 2fr;
   gap: 2rem;
   padding: 2rem;
+  flex-wrap: wrap;
 }
 
 .new-request-form {
   background-color: var(--card-background);
   padding: 2rem;
   border-radius: 8px;
+  flex: 1 1 auto;
 }
 
 .new-request-form h2 {
@@ -52,6 +58,7 @@ button[type="submit"]:hover {
 
 .pending-requests,
 .history-section {
+  flex: 1 1 auto;
   background-color: var(--card-background);
   padding: 2rem;
   border-radius: 8px;

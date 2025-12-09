@@ -1,8 +1,23 @@
 <div class="layout-container">
-  <aside class="sidebar">
+  <aside class="sidebar" [class.collapsed]="isCollapsed()">
     <div class="sidebar-header">
       <h2 class="sidebar-title">TimeWise</h2>
+      <button class="toggle-button" (click)="toggleSidebar()">
+        @if (isCollapsed()) {
+          <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <line x1="3" x2="21" y1="12" y2="12"></line>
+            <line x1="3" x2="21" y1="6" y2="6"></line>
+            <line x1="3" x2="21" y1="18" y2="18"></line>
+          </svg>
+        } @else {
+          <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <line x1="18" x2="6" y1="6" y2="18"></line>
+            <line x1="6" x2="18" y1="6" y2="18"></line>
+          </svg>
+        }
+      </button>
     </div>
+   
     <nav class="sidebar-nav">
       <a routerLink="/dashboard" routerLinkActive="active">
         <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="3" width="7" height="7"></rect><rect x="14" y="3" width="7" height="7"></rect><rect x="14" y="14" width="7" height="7"></rect><rect x="3" y="14" width="7" height="7"></rect></svg>
@@ -30,9 +45,9 @@
       </a>
     </nav>
   </aside>
-  <main class="main-content">
+  <main class="main-content" [class.collapsed]="isCollapsed()">
     <header class="header">
-      <h1 class="header-title">{{ pageTitle() }}</h1>
+      <span class="header-title">{{ pageTitle() }}</span>
       @if (userService.currentUser(); as user) {
         <div class="user-info">
           <span>{{ user.name }}</span>

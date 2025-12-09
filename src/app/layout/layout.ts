@@ -13,6 +13,7 @@ import { UserService } from '../core/services/user.service';
 export class LayoutComponent {
   public pageTitle = signal('Dashboard');
   public userService = inject(UserService);
+  public isCollapsed = signal(true);
 
   constructor(private router: Router, private activatedRoute: ActivatedRoute) {
     this.router.events.pipe(
@@ -30,5 +31,9 @@ export class LayoutComponent {
   logout() {
     this.userService.clearSession();
     this.router.navigate(['/login']);
+  }
+
+  toggleSidebar() {
+    this.isCollapsed.update(value => !value);
   }
 }

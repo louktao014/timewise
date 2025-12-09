@@ -1,15 +1,14 @@
 .time-off-container {
-  /* display: grid;
-  grid-template-columns: 1fr 2fr;
-  gap: 2rem;
-  padding: 2rem; */
   display: flex;
-  grid-template-columns: 1fr 2fr;
   gap: 2rem;
   padding: 2rem;
   flex-wrap: wrap;
+  flex-direction: column;
 }
-
+.container-wrapper{
+  display: flex;
+  gap: 2rem;
+}
 .new-request-form {
   background-color: var(--card-background);
   padding: 2rem;

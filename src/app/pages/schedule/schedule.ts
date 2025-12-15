@@ -1,11 +1,12 @@
 import { ChangeDetectionStrategy, Component, signal, computed } from '@angular/core';
 import { DatePipe } from '@angular/common';
 import * as XLSX from 'xlsx';
+import { ScheduleModal, WorkTime } from './schedule-modal';
 
 interface CalendarDay {
   date: Date;
   isCurrentMonth: boolean;
-  employees: string[];
+  workTimes: WorkTime[];
 }
 
 @Component({
@@ -13,13 +14,14 @@ interface CalendarDay {
   templateUrl: './schedule.html',
   styleUrls: ['./schedule.css'],
   changeDetection: ChangeDetectionStrategy.OnPush,
-  imports: [DatePipe],
+  imports: [DatePipe, ScheduleModal],
 })
 export class ScheduleComponent {
   public daysOfWeek = ['Sun', 'Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat'];
   public currentMonth = signal(new Date());
 
-  private scheduleData = signal<Map<string, string[]>>(new Map());
+  private scheduleData = signal<Map<string, WorkTime[]>>(new Map());
+  public selectedDay = signal<CalendarDay | null>(null);
 
   public calendarDays = computed(() => {
     return this.generateCalendarDays(this.currentMonth());
@@ -38,16 +40,16 @@ export class ScheduleComponent {
       const ws: XLSX.WorkSheet = wb.Sheets[wsname];
       const data: any[] = XLSX.utils.sheet_to_json(ws);
 
-      const newSchedule = new Map<string, string[]>();
+      const newSchedule = new Map<string, WorkTime[]>();
       data.forEach(row => {
-        if (row.Date && row.Employee) {
+        if (row.Date && row.Employee && row.StartTime && row.EndTime) {
             const date = new Date(row.Date);
             const adjustedDate = new Date(date.valueOf() + date.getTimezoneOffset() * 60 * 1000);
             const dateString = this.formatDate(adjustedDate);
 
-            const employees = newSchedule.get(dateString) || [];
-            employees.push(row.Employee);
-            newSchedule.set(dateString, employees);
+            const workTimes = newSchedule.get(dateString) || [];
+            workTimes.push({ startTime: row.StartTime, endTime: row.EndTime, employee: row.Employee });
+            newSchedule.set(dateString, workTimes);
         }
       });
       this.scheduleData.set(newSchedule);
@@ -57,16 +59,36 @@ export class ScheduleComponent {
 
   public exportSchedule(): void {
     const data: any[] = [];
-    this.scheduleData().forEach((employees, date) => {
-      employees.forEach(employee => {
-        data.push({ Date: date, Employee: employee });
-      });
+    this.scheduleData().forEach((workTimes, date) => {
+        workTimes.forEach(workTime => {
+            data.push({ Date: date, StartTime: workTime.startTime, EndTime: workTime.endTime, Employee: workTime.employee });
+        });
     });
 
     const ws: XLSX.WorkSheet = XLSX.utils.json_to_sheet(data);
     const wb: XLSX.WorkBook = XLSX.utils.book_new();
     XLSX.utils.book_append_sheet(wb, ws, 'Schedule');
     XLSX.writeFile(wb, 'schedule.xlsx');
+  }
+
+  public openAddWorkTimeModal(day: CalendarDay): void {
+    this.selectedDay.set(day);
+  }
+
+  public closeWorkTimeModal(): void {
+    this.selectedDay.set(null);
+  }
+
+  public saveWorkTimes(workTimes: WorkTime[]): void {
+    const day = this.selectedDay();
+    if (day) {
+      const dateString = this.formatDate(day.date);
+      this.scheduleData.update(currentSchedule => {
+        const newSchedule = new Map(currentSchedule);
+        newSchedule.set(dateString, workTimes);
+        return newSchedule;
+      });
+    }
   }
 
   private formatDate(date: Date): string {
@@ -96,7 +118,7 @@ export class ScheduleComponent {
       days.push({
         date: new Date(currentDate),
         isCurrentMonth: currentDate.getMonth() === month,
-        employees: this.getEmployeesForDate(currentDate),
+        workTimes: this.getWorkTimesForDate(currentDate),
       });
       currentDate.setDate(currentDate.getDate() + 1);
     }
@@ -104,7 +126,7 @@ export class ScheduleComponent {
     return days;
   }
 
-  private getEmployeesForDate(date: Date): string[] {
+  private getWorkTimesForDate(date: Date): WorkTime[] {
     const dateString = this.formatDate(date);
     return this.scheduleData().get(dateString) || [];
   }

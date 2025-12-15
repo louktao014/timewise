@@ -1,97 +1,34 @@
-# Timewise
+# Project Blueprint
 
 ## Overview
 
-Timewise is a modern, intuitive, and visually appealing employee management application built with the latest features of Angular. It provides a seamless experience for managing employee information, schedules, and payroll.
+This project is a comprehensive employee management application built with Angular. It provides a modern and intuitive interface for managing employee data, schedules, payroll, and other HR-related tasks.
 
-## Project Structure
+## Style and Design
 
-### Core
+*   **Layout:** The application features a clean and responsive layout with a sidebar for navigation and a main content area for displaying information.
+*   **Color Palette:** The color scheme is based on a modern and professional palette, with a primary color of #36A2EB (blue) used for accents and highlights.
+*   **Typography:** The application uses a clear and legible font for optimal readability.
+*   **Iconography:** The application will use icons to enhance usability and provide visual cues for actions.
 
-*   **`app.config.ts`**: Configures the application, including routing and other providers.
-*   **`app.component.ts`**: The root component of the application.
-*   **`app.routes.ts`**: Defines the main routing structure of the application.
-*   **`layout/layout.ts`**: The main layout component, containing the header, sidebar, and router outlet.
+## Features
 
-### Pages
+*   **Dashboard:** A central hub for viewing key metrics and alerts, including total employees, on-schedule status, pending payrolls, and issues.
+*   **Employee Management:** A dedicated section for managing employee information, including personal details, contact information, and job-related data.
+*   **Scheduling:** A tool for creating and managing employee schedules, with support for different shifts and rotations.
+*   **Payroll:** A module for processing payroll, including calculating wages, deductions, and taxes.
+*   **Time Off:** A system for managing employee time off requests and approvals.
+*   **Settings:** A section for configuring application settings, including user permissions and notification preferences.
 
-*   **`dashboard`**: The main dashboard, providing an overview of key information.
-*   **`employees`**: Manages the list of employees, including their details.
-*   **`schedule`**: Displays and manages the employee schedule.
-*   **`payroll`**: Handles payroll processing and history.
-*   **`settings`**: Manages application settings, including user permissions.
+## Current Task: Add Charts to Dashboard
 
-### Styles
+### Plan
 
-*   **`styles.css`**: Global styles for the application.
-
-## Layout
-
-The application features a responsive sidebar navigation and a main content area. All pages, including the complex tables in the settings area, are designed to be responsive and adapt to different screen sizes. The sidebar provides links to the main pages of the application, and the main content area displays the content of the currently active page.
-
-### Header
-
-The header displays the title of the current page.
-
-### Sidebar
-
-The sidebar contains the application title and navigation links to the following pages:
-
-*   Dashboard
-*   Employees
-*   Schedule
-*   Payroll
-*   Settings
-
-The sidebar is designed to be responsive, collapsing to a smaller width on smaller screens.
-
-## Dashboard
-
-The dashboard provides a high-level overview of key metrics, including:
-
-*   Total number of employees
-*   Number of employees on schedule for the current day
-*   Number of pending payrolls
-*   Number of open issues and alerts
-
-## Employees
-
-The employees page displays a list of all employees in a table. The table includes the following information for each employee:
-
-*   Name
-*   Email
-*   Phone
-*   Job Title
-
-The page also includes a button to add a new employee, as well as actions to edit or delete existing employees.
-
-## Schedule
-
-The schedule page displays a weekly calendar view of employee schedules. The calendar shows the schedule for each employee for the current week. The page includes navigation buttons to move to the previous or next week.
-
-## Payroll
-
-The payroll page displays a list of payrolls and allows the user to view the details of each payroll. The page includes a button to run a new payroll and a list of past payrolls with their status and pay period.
-
-## Settings
-
-The settings page provides a tabbed interface for managing application settings. It is designed to be fully responsive. On smaller screens, the tabbed navigation stacks vertically for improved usability. The content within each tab, such as the permissions table, is also optimized for smaller viewports with horizontal scrolling for wider tables. The following tabs are available:
-
-*   **Permission**: Manages user roles and their permissions.
-
-### Permission
-
-The permission tab displays a table of user roles and their permissions. The table allows the user to toggle permissions for each role. The following roles are available:
-
-*   Admin
-*   Manager
-*   Employee
-
-The following permissions can be managed for each role:
-
-*   Dashboard
-*   Employees
-*   Schedule
-*   Payroll
-*   Time Off
-*   Settings
+1.  **Install Chart.js:** Add the Chart.js library to the project to enable chart creation.
+2.  **Update Dashboard HTML:** Add two new cards to the dashboard layout to house the doughnut and bar charts.
+3.  **Update Dashboard Component:**
+    *   Implement the `AfterViewInit` lifecycle hook to ensure the charts are created after the view is initialized.
+    *   Use `@ViewChild` to get references to the canvas elements in the template.
+    *   Create two new methods, `createDoughnutChart()` and `createBarChart()`, to encapsulate the chart creation logic.
+    *   Initialize the doughnut and bar charts with sample data and configuration options.
+4.  **Verify Changes:** Run `ng build` to ensure the application compiles without errors and the new charts are displayed correctly.

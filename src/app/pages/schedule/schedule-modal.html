@@ -1,0 +1,51 @@
+<div class="modal-overlay">
+    <div class="modal-content">
+      <h2>{{ day().date.toDateString() }}</h2>
+      <div class="tabs">
+        <button (click)="mode.set('view')" [class.active]="mode() === 'view'">View</button>
+        <button (click)="mode.set('add')" [class.active]="mode() === 'add'">{{isEditing ? 'Edit' : 'Add'}}</button>
+      </div>
+  
+      @if (mode() === 'view') {
+        <div class="work-times-list">
+            @for (workTime of workTimes(); track workTime; let i = $index) {
+                <div class="work-time-item">
+                    <span>{{ workTime.startTime }} - {{ workTime.endTime }}: {{ workTime.employee }}</span>
+                    <div class="work-time-actions">
+                      <button (click)="editWorkTime(i)" class="btn btn-sm btn-secondary">Edit</button>
+                      <button (click)="deleteWorkTime(i)" class="btn btn-sm btn-danger">Delete</button>
+                    </div>
+                  </div>
+            }
+            @if (workTimes().length === 0) {
+                <p>No work times scheduled for this day.</p>
+            }
+        </div>
+        <button (click)="switchToAddMode()" class="btn btn-primary">Add New</button>
+      } @else {
+        <form (ngSubmit)="addOrUpdateWorkTime()">
+            <div class="form-group">
+              <label for="startTime">Start Time</label>
+              <input type="time" id="startTime" [(ngModel)]="newWorkTime().startTime" name="startTime" required>
+            </div>
+            <div class="form-group">
+              <label for="endTime">End Time</label>
+              <input type="time" id="endTime" [(ngModel)]="newWorkTime().endTime" name="endTime" required>
+            </div>
+            <div class="form-group">
+              <label for="employee">Employee</label>
+              <input type="text" id="employee" [(ngModel)]="newWorkTime().employee" name="employee" required>
+            </div>
+            <div class="form-actions">
+                <button type="submit" class="btn btn-primary">{{ isEditing ? 'Update' : 'Add' }}</button>
+                <button type="button" (click)="mode.set('view')" class="btn">Cancel</button>
+            </div>
+          </form>
+      }
+  
+      <div class="modal-actions">
+        <button (click)="onSave()" class="btn btn-primary">Save Changes</button>
+        <button (click)="close()" class="btn">Cancel</button>
+      </div>
+    </div>
+  </div>

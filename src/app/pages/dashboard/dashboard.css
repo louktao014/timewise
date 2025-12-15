@@ -1,6 +1,25 @@
 .dashboard-container {
   padding: 20px;
 }
+.chart-container {
+  display: flex;
+  gap: 20px;
+  margin-top: 20px;
+}
+
+.chart {
+  flex: 1;
+  padding: 20px;
+  border-radius: 5px;
+  background-color: var(--card-background);
+}
+.chart-doughnut {
+  flex: 0;
+  padding: 20px;
+  border-radius: 5px;
+  background-color: var(--card-background);
+}
+
 
 .dashboard-grid {
   display: grid;
@@ -28,6 +47,7 @@
 
 .card-body {
   padding: 20px;
+  height: 300px; 
 }
 
 .card-text {

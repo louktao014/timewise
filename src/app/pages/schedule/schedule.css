@@ -88,6 +88,11 @@
   min-height: 120px;
   display: flex;
   flex-direction: column;
+  cursor: pointer;
+}
+
+.calendar-day:hover {
+    background-color: #f0f0f0;
 }
 
 .calendar-day:nth-child(7n) {
@@ -103,11 +108,11 @@
   color: #555;
 }
 
-.employees-list {
+.work-times-list {
   flex-grow: 1;
 }
 
-.employee {
+.work-time {
   background-color: var(--sidebar-active-link);
   padding: 2px 5px;
   border-radius: 3px;

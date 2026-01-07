@@ -8,7 +8,7 @@ import { FormsModule } from '@angular/forms';
   imports: [FormsModule],
   templateUrl: './login.html',
   styleUrl: './login.css',
-  changeDetection: ChangeDetectionStrategy.OnPush
+  changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class LoginComponent {
   private router = inject(Router);
@@ -19,9 +19,9 @@ export class LoginComponent {
   public errorMessage = signal<string | null>(null);
 
   login() {
-    if (this.username() === 'dev' && this.password() === '1') {
-      const user = { name: 'Admin User', email: 'admin@example.com' };
-      this.userService.setSession(user);
+    const currentUser = this.userService.getUser(this.username(), this.password());
+    if (currentUser) {
+      this.userService.setSession(currentUser.userDetail);
       this.router.navigate(['/dashboard']);
     } else {
       this.errorMessage.set('Invalid username or password');

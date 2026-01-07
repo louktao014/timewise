@@ -16,16 +16,19 @@ export class LayoutComponent {
   public isCollapsed = signal(true);
 
   constructor(private router: Router, private activatedRoute: ActivatedRoute) {
-    this.router.events.pipe(
-      filter(event => event instanceof NavigationEnd),
-      map(() => {
-        let route = this.activatedRoute.firstChild;
-        while (route?.firstChild) {
-          route = route.firstChild;
-        }
-        return route?.snapshot.data['title'] || 'Dashboard';
-      })
-    ).subscribe(title => this.pageTitle.set(title));
+    this.router.events
+      .pipe(
+        filter((event) => event instanceof NavigationEnd),
+        map(() => {
+          let route = this.activatedRoute.firstChild;
+          while (route?.firstChild) {
+            route = route.firstChild;
+          }
+          return route?.snapshot.data['title'] || 'Dashboard';
+        })
+      )
+      .subscribe((title) => this.pageTitle.set(title));
+    console.log('userService', this.userService.currentUser()?.permission);
   }
 
   logout() {
@@ -34,6 +37,6 @@ export class LayoutComponent {
   }
 
   toggleSidebar() {
-    this.isCollapsed.update(value => !value);
+    this.isCollapsed.update((value) => !value);
   }
 }

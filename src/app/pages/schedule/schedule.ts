@@ -48,7 +48,7 @@ export class ScheduleComponent {
             const dateString = this.formatDate(adjustedDate);
 
             const workTimes = newSchedule.get(dateString) || [];
-            workTimes.push({ startTime: row.StartTime, endTime: row.EndTime, employee: row.Employee });
+            workTimes.push({ startTime: row.StartTime, endTime: row.EndTime, employee: row.Employee ,type:row.Type, reason:row.Reason});
             newSchedule.set(dateString, workTimes);
         }
       });

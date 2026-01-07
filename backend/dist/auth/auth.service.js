@@ -1,0 +1,70 @@
+"use strict";
+var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
+    var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
+    if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
+    else for (var i = decorators.length - 1; i >= 0; i--) if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
+    return c > 3 && r && Object.defineProperty(target, key, r), r;
+};
+var __metadata = (this && this.__metadata) || function (k, v) {
+    if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
+};
+Object.defineProperty(exports, "__esModule", { value: true });
+exports.AuthService = void 0;
+const common_1 = require("@nestjs/common");
+const supabase_service_1 = require("../supabase/supabase.service");
+let AuthService = class AuthService {
+    supabaseService;
+    constructor(supabaseService) {
+        this.supabaseService = supabaseService;
+    }
+    async register(email, password) {
+        const { data: authData, error: signUpError, } = await this.supabaseService.getClient().auth.signUp({
+            email,
+            password,
+        });
+        if (signUpError) {
+            throw new common_1.BadRequestException(signUpError.message);
+        }
+        if (!authData.user) {
+            throw new common_1.InternalServerErrorException('Registration failed: user data not available after sign up.');
+        }
+        const { data: insertedData, error: insertError } = await this.supabaseService
+            .getClient()
+            .from('users')
+            .insert([{ id: authData.user.id, email: authData.user.email }])
+            .select();
+        if (insertError) {
+            throw new common_1.InternalServerErrorException(`Failed to save user to database: ${insertError.message}`);
+        }
+        return insertedData;
+    }
+    async login(email, password) {
+        const { data, error } = await this.supabaseService
+            .getClient()
+            .auth.signInWithPassword({
+            email,
+            password,
+        });
+        if (error) {
+            throw new common_1.BadRequestException(error.message);
+        }
+        return data;
+    }
+    async getUser(email) {
+        const { data, error } = await this.supabaseService
+            .getClient()
+            .from('users')
+            .select('*')
+            .eq('email', email);
+        if (error) {
+            throw new common_1.InternalServerErrorException(error.message);
+        }
+        return data;
+    }
+};
+exports.AuthService = AuthService;
+exports.AuthService = AuthService = __decorate([
+    (0, common_1.Injectable)(),
+    __metadata("design:paramtypes", [supabase_service_1.SupabaseService])
+], AuthService);
+//# sourceMappingURL=auth.service.js.map

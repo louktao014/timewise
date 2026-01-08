@@ -1,0 +1,47 @@
+<div class="document-container">
+  <div class="header-controls">
+    <div class="filter-buttons">
+      <button (click)="filterByType('all')" [class.active]="selectedType() === 'all'">All</button>
+      <button (click)="filterByType('request')" [class.active]="selectedType() === 'request'">
+        Requests
+      </button>
+      <button (click)="filterByType('warning')" [class.active]="selectedType() === 'warning'">
+        Warnings
+      </button>
+      <button
+        (click)="filterByType('certificate')"
+        [class.active]="selectedType() === 'certificate'"
+      >
+        Certificates
+      </button>
+    </div>
+  </div>
+
+  <table class="document-table">
+    <thead>
+      <tr>
+        <th>Title</th>
+        <th>Type</th>
+        <th>Date</th>
+        <th></th>
+      </tr>
+    </thead>
+    <tbody>
+      @for (doc of filteredDocuments(); track doc.id) {
+      <tr>
+        <td>{{ doc.title }}</td>
+        <td>
+          <span class="badge" [class]="'badge-' + doc.type">{{ doc.type }}</span>
+        </td>
+        <td>{{ doc.date }}</td>
+        <td>
+          <div class="button-document">
+            <button class="view-button" (click)="viewDocument(doc)">View</button>
+            <button class="download-button" (click)="downloadDocument(doc)">Download</button>
+          </div>
+        </td>
+      </tr>
+      }
+    </tbody>
+  </table>
+</div>

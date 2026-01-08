@@ -1,0 +1,64 @@
+<div>
+  <h2>Document Management</h2>
+
+  <!-- Modern Upload document form -->
+  <form (submit)="uploadDocument()" class="upload-form">
+    <label class="file-upload-label" for="file-upload">
+      <input id="file-upload" type="file" (change)="onFileSelected($event)" />
+      <span class="upload-icon">📤</span>
+      <span class="upload-text">Drag & drop your file here or click to select</span>
+      @if(selectedFile(); as file) {
+      <span class="file-name">{{ file.name }}</span>
+      }
+    </label>
+    @if(selectedFile()) {
+    <div class="enter-file-name">
+      <input type="text" placeholder="Enter file name" [value]="selectedFile()?.name" />
+      <button type="submit" class="upload-button">Upload</button>
+    </div>
+    }
+  </form>
+
+  <!-- Document list -->
+  @if(documents().length > 0) {
+  <table>
+    <thead>
+      <tr>
+        <th>Document Name</th>
+        <th>Actions</th>
+      </tr>
+    </thead>
+    <tbody>
+      @for(doc of documents(); track doc.id) {
+      <tr>
+        <td>
+          @if(editingDocument()?.id === doc.id) {
+          <input
+            type="text"
+            [value]="editingDocument()?.name"
+            (input)="editingDocument.set({ id: doc.id, name: $event.target.value })"
+          />
+          } @else {
+          {{ doc.name }}
+          }
+        </td>
+        <td>
+          @if(editingDocument()?.id === doc.id) {
+          <button (click)="updateDocument()" class="save-button">Save</button>
+          <button (click)="cancelEdit()" class="cancel-button">Cancel</button>
+          } @else {
+          <button (click)="editDocument(doc)" class="view-button">view</button>
+          <button (click)="editDocument(doc)" class="edit-button">Edit</button>
+          <button (click)="deleteDocument(doc.id)" class="delete-button">Delete</button>
+          }
+        </td>
+      </tr>
+      }
+    </tbody>
+  </table>
+  } @else {
+  <div class="no-data-container">
+    <p class="text-content">No documents found.</p>
+  </div>
+  }
+</div>

@@ -1,10 +1,27 @@
 <div class="settings-container">
   <div class="tabs">
-    <button class="tab-btn" [class.active]="activeTab() === 'permission'" (click)="activeTab.set('permission')">Permission</button>
+    <button
+      class="tab-btn"
+      [class.active]="activeTab() === 'documents'"
+      (click)="activeTab.set('documents')"
+    >
+      Documents
+    </button>
+    <button
+      class="tab-btn"
+      [class.active]="activeTab() === 'permission'"
+      (click)="activeTab.set('permission')"
+    >
+      Permission
+    </button>
   </div>
   <div class="tab-content">
-    @if (activeTab() === 'permission') {
-      <app-permission></app-permission>
-    }
+    @switch (activeTab()) { @case ('documents') {
+    <app-document-management></app-document-management>
+    } @case ('permission') {
+    <app-permission></app-permission>
+    } @default {
+    <!-- optional fallback -->
+    } }
   </div>
 </div>

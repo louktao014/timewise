@@ -7,17 +7,15 @@
   margin-top: 20px;
 }
 
-.chart {
+.chart,
+.chart-doughnut {
   flex: 1;
   padding: 20px;
   border-radius: 5px;
   background-color: var(--card-background);
-}
-.chart-doughnut {
-  flex: 0;
-  padding: 20px;
-  border-radius: 5px;
-  background-color: var(--card-background);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
 }
 
 .dashboard-grid {
@@ -46,7 +44,6 @@
 
 .card-body {
   padding: 20px;
-  height: 300px;
 }
 
 .card-text {

@@ -2,39 +2,49 @@
 
 ## Overview
 
-This project is a comprehensive employee management application built with an Angular frontend and a Node.js backend. It provides a modern and intuitive interface for managing employee data, schedules, payroll, and other HR-related tasks, with data persisted in a Supabase database.
+This project is a modern employee management portal built entirely with Angular. It leverages the latest Angular features, including standalone components, signals for state management, and the new built-in control flow syntax. The application is designed to be a comprehensive tool for HR-related tasks, providing a visually appealing and interactive user experience.
 
 ## Style and Design
 
-*   **Layout:** The application features a clean and responsive layout with a sidebar for navigation and a main content area for displaying information. The layout adapts to different screen sizes, ensuring a consistent user experience across desktop and mobile devices.
-*   **Color Palette:** The color scheme is based on a modern and professional palette, with a primary color of `#36A2EB` (blue) used for accents and highlights.
-*   **Typography:** The application uses a clear and legible font for optimal readability.
-*   **Iconography:** The application will use icons to enhance usability and provide visual cues for actions.
+*   **Aesthetics:** The application prioritizes a clean, modern, and intuitive user interface. It incorporates visually balanced layouts, ample spacing, and polished styles.
+*   **Layout:** A responsive design with a primary sidebar for navigation and a main content area ensures a seamless experience on both desktop and mobile devices.
+*   **Color Palette:** The color scheme uses a professional and calming palette. The primary color is `#36A2EB` (a vibrant blue), used for interactive elements and highlights.
+*   **Typography:** Clear and legible fonts are used throughout the application to ensure readability.
+*   **Iconography:** Material Design icons are used to enhance usability and provide clear visual cues for actions.
 
 ## Frontend Features
 
-*   **Dashboard:** A central hub for viewing key metrics and alerts.
-*   **Employee Management:** A dedicated section for managing employee information.
-*   **Scheduling:** A tool for creating and managing employee schedules.
-*   **Payroll:** A module for processing payroll.
-*   **Time Off:** A system for managing employee time off requests.
-*   **Settings:** A section for configuring application settings.
+The application is modular and organized into the following features:
+
+*   **Dashboard:** A central hub displaying key metrics and alerts.
+*   **Employee Management:** A section for viewing and managing employee information.
+*   **Scheduling:** A tool for creating and managing employee work schedules.
+*   **Time Off:** A system for managing employee time-off requests.
 *   **Profile:** A user profile page.
-*   **Login:** A secure login page.
+*   **Login:** A secure authentication page.
+*   **Settings:** A configuration area for the application.
+    *   **Permissions:** Manage user roles and permissions.
+    *   **Document Management:** Add, edit, and delete required company or employee documents.
 
-## Backend Setup
-
-*   **Framework:** The backend is built using Node.js and Express.
-*   **Database:** Supabase is used for the database, providing a scalable and secure data backend.
-*   **Connection:** The connection to Supabase is managed through the `@supabase/supabase-js` client.
-*   **Environment Variables:** A `.env` file is used to store sensitive credentials like the Supabase URL and API key, managed by the `dotenv` package.
-
-## Current Task: Backend Supabase Integration
+## Current Task: Implement Document Management
 
 ### Plan
 
-1.  **Create `.env` file:** Create a `backend/.env` file to store `SUPABASE_URL` and `SUPABASE_KEY`.
-2.  **Install Dependencies:** Install `npm` packages: `@supabase/supabase-js` for the Supabase client, `dotenv` to manage environment variables, and `express` for the server.
-3.  **Initialize Supabase Client:** Create a `backend/supabase.js` file to initialize the Supabase client and export it for use in other backend modules.
-4.  **Create Example Server:** Create a `backend/server.js` file with a simple Express server to demonstrate how to connect to Supabase and fetch data.
-5.  **Verify Setup:** The setup is complete. The user needs to add their actual Supabase key to the `.env` file and can then run the server to test the connection.
+1.  **Update Settings UI:** Added a "Documents" tab to the settings page (`settings.html`) to provide an entry point for the new feature.
+2.  **Create Document Management Component:** Generated a new standalone component (`document-management`) to encapsulate all functionality related to document management.
+3.  **Define Data Model:** Created a `document.model.ts` file to define the `Document` interface.
+4.  **Create Data Service:** Implemented a `DocumentService` (`document.service.ts`) to manage the state of the documents.
+    *   Used a `signal` to hold the array of documents.
+    *   Populated the service with initial mock data.
+    *   Created methods to get, add, update, and delete documents.
+5.  **Implement Component Logic:**
+    *   Injected the `DocumentService` into the `DocumentManagementComponent`.
+    *   Used signals to manage component state (document list, new document name, editing state).
+    *   Implemented methods to handle user interactions (add, edit, update, delete, cancel).
+6.  **Build the Template:**
+    *   Created an HTML form for adding new documents.
+    *   Built a table to display the list of documents using the new `@for` syntax.
+    *   Used the `@if` and `@else` syntax to conditionally render display and edit modes within the table.
+    *   Bound all interactive elements to the component's signals and methods.
+7.  **Apply Styles:** Added custom CSS in `document-management.css` to style the form, table, and buttons for a polished and professional look.
+8.  **Verify and Finalize:** Ran `ng build` multiple times throughout the process to ensure the application compiles without errors. The feature is now complete and integrated.

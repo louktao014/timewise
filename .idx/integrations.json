@@ -1,4 +1,6 @@
 {
-  "firebase_hosting": {},
+  "firebase_hosting": {
+    "deploymentHostingUrl": "https://timewise-79768892-54f16.web.app"
+  },
   "cloud_run_deploy": {}
 }

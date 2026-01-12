@@ -1,6 +1,7 @@
 import { ChangeDetectionStrategy, Component, inject, signal } from '@angular/core';
 import { DocumentService } from './document.service';
-import { Document } from './document.model';
+import { Document, DocumentType } from './document.model';
+import { UserService } from '../../../core/services/user.service';
 
 @Component({
   selector: 'app-document-management',
@@ -10,12 +11,18 @@ import { Document } from './document.model';
 })
 export class DocumentManagementComponent {
   private documentService = inject(DocumentService);
+  private userService = inject(UserService);
 
   public documents = signal<Document[]>([]);
   public selectedFile = signal<File | null>(null);
   public editingDocument = signal<Document | null>(null);
-  selectedDocumentType = signal<'request' | 'warning' | 'certificate' | 'orther'>('request');
-  public documentTypes = ['request', 'warning', 'certificate', 'orther'];
+  selectedDocumentType = signal<DocumentType>(DocumentType.REQUEST);
+  public documentTypes = [
+    DocumentType.REQUEST,
+    DocumentType.WARNING,
+    DocumentType.CERTIFICATE,
+    DocumentType.OTHER,
+  ];
 
   constructor() {
     this.documents.set([...this.documentService.getDocuments()]);
@@ -31,8 +38,15 @@ export class DocumentManagementComponent {
   uploadDocument() {
     const file = this.selectedFile();
     if (file) {
-      this.documentService.addDocument(file.name);
-      this.documents.set(this.documentService.getDocuments());
+      const currentUser = this.userService.currentUser();
+      const params = {
+        title: file.name,
+        type: this.selectedDocumentType(),
+        lastUpdate: new Date(new Date().getTime()).toISOString().split('T')[0],
+        updatedBy: currentUser?.name,
+      } as Document;
+      this.documentService.addDocument(params);
+      this.documents.set([...this.documentService.getDocuments()]);
       this.selectedFile.set(null);
     }
   }
@@ -64,10 +78,9 @@ export class DocumentManagementComponent {
   }
   selectDocumentType(event: Event) {
     const element = event.target as HTMLSelectElement;
-    const type = element.value as 'request' | 'warning' | 'certificate' | 'orther';
-    console.log('Selected document type:', type);
+    const type = element.value as DocumentType;
     if (type === null) {
-      this.selectedDocumentType.set('request');
+      this.selectedDocumentType.set(DocumentType.REQUEST);
     } else {
       this.selectedDocumentType.set(type);
     }

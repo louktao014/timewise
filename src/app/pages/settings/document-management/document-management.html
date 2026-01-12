@@ -1,6 +1,6 @@
 <div>
   <h2>Document Management</h2>
-  <form (submit)="uploadDocument()" class="upload-form">
+  <form (submit)="uploadDocument(); $event.preventDefault()" class="upload-form">
     <label class="file-upload-label" for="file-upload">
       <input id="file-upload" type="file" (change)="onFileSelected($event)" />
       <span class="upload-icon">📤</span>
@@ -29,7 +29,7 @@
   </form>
 
   <!-- Document list -->
-  @if(documents().length > 0) {
+
   <table class="document-table">
     <thead>
       <tr>
@@ -41,7 +41,7 @@
       </tr>
     </thead>
     <tbody>
-      @for(doc of documents(); track doc.id) {
+      @if(documents().length > 0) { @for(doc of documents(); track doc.id) {
       <tr>
         <td>
           @if(editingDocument()?.id === doc.id) {
@@ -68,12 +68,16 @@
           }
         </td>
       </tr>
+      } }@else {
+      <tr>
+        <td colspan="5">
+          <div class="no-data-container">
+            <p class="text-content">No documents found.</p>
+          </div>
+        </td>
+      </tr>
+
       }
     </tbody>
   </table>
-  } @else {
-  <div class="no-data-container">
-    <p class="text-content">No documents found.</p>
-  </div>
-  }
 </div>

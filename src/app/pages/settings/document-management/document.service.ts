@@ -5,7 +5,6 @@ import { Document, DocumentType } from './document.model';
   providedIn: 'root',
 })
 export class DocumentService {
-  // private documents = signal<Document[]>([]);
   private documents = signal<Document[]>([
     {
       id: 1,
@@ -50,12 +49,10 @@ export class DocumentService {
     return this.documents();
   }
 
-  addDocument(name: string) {
+  addDocument(params: Document) {
     const newDocument: Document = {
       id: this.documents().length + 1,
-      title: name,
-      type: DocumentType.REQUEST,
-      lastUpdate: new Date(new Date().getTime()).toISOString().split('T')[0],
+      ...(params as Omit<Document, 'id'>),
     };
     this.documents.set([...this.documents(), newDocument]);
   }

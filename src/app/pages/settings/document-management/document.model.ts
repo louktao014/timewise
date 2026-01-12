@@ -2,7 +2,7 @@ export interface Document {
   id: number;
   title: string;
   type?: DocumentType;
-  lastUpdate?: string; // ISO date string (YYYY-MM-DD)
+  lastUpdate?: string; //? ISO date string (YYYY-MM-DD)
   updatedBy?: string;
 }
 
@@ -11,5 +11,5 @@ export enum DocumentType {
   WARNING = 'WARNING',
   CERTIFICATE = 'CERTIFICATE',
   OTHER = 'OTHER',
-  ALL = 'ALL',
+  ALL = 'ALL', //? used for filtering in Document Component
 }

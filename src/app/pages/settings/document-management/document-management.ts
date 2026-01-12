@@ -14,10 +14,11 @@ export class DocumentManagementComponent {
   public documents = signal<Document[]>([]);
   public selectedFile = signal<File | null>(null);
   public editingDocument = signal<Document | null>(null);
+  selectedDocumentType = signal<'request' | 'warning' | 'certificate' | 'orther'>('request');
+  public documentTypes = ['request', 'warning', 'certificate', 'orther'];
 
   constructor() {
     this.documents.set([...this.documentService.getDocuments()]);
-    console.log('this.documents', this.documents());
   }
 
   onFileSelected(event: Event) {
@@ -42,7 +43,10 @@ export class DocumentManagementComponent {
 
   updateDocument() {
     if (this.editingDocument()) {
-      this.documentService.updateDocument(this.editingDocument()!.id, this.editingDocument()!.name);
+      this.documentService.updateDocument(
+        this.editingDocument()!.id,
+        this.editingDocument()!.title
+      );
       this.editingDocument.set(null);
       this.documents.set(this.documentService.getDocuments());
     } else {
@@ -54,8 +58,22 @@ export class DocumentManagementComponent {
     this.editingDocument.set(null);
   }
 
-  deleteDocument(id: string) {
+  deleteDocument(id: number) {
     this.documentService.deleteDocument(id);
     this.documents.set(this.documentService.getDocuments());
+  }
+  selectDocumentType(event: Event) {
+    const element = event.target as HTMLSelectElement;
+    const type = element.value as 'request' | 'warning' | 'certificate' | 'orther';
+    console.log('Selected document type:', type);
+    if (type === null) {
+      this.selectedDocumentType.set('request');
+    } else {
+      this.selectedDocumentType.set(type);
+    }
+  }
+
+  selectedType() {
+    return this.selectedDocumentType();
   }
 }

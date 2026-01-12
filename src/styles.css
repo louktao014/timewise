@@ -1,15 +1,16 @@
 :root {
-  --primary-color: #FFCA28;
-  --primary-color-dark: #FFA000;
+  --primary-color: #ffca28;
+  --primary-color-dark: #ffa000;
   --secondary-color: #2c2c3e;
-  --sidebar-background: #1E1E1E;
-  --sidebar-text-color: #FFFFFF;
+  --sidebar-background: #1e1e1e;
+  --sidebar-text-color: #ffffff;
   --sidebar-active-link: #3c3c4a;
   --background-color: #121212;
   --text-color: #ffffff;
-  --card-background: #1E1E1E;
+  --card-background: #1e1e1e;
   --card-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
   --font-family: 'Poppins', sans-serif;
+  --font-size: 12px;
 }
 
 body {
@@ -17,6 +18,7 @@ body {
   font-family: var(--font-family);
   background-color: var(--background-color);
   color: var(--text-color);
+  font-size: var(--font-size);
 }
 
 .main-content {

@@ -7,8 +7,8 @@ import { DocumentManagementComponent } from './document-management/document-mana
   templateUrl: './settings.html',
   styleUrls: ['./settings.css'],
   changeDetection: ChangeDetectionStrategy.OnPush,
-  imports: [PermissionComponent, DocumentManagementComponent]
+  imports: [PermissionComponent, DocumentManagementComponent],
 })
 export class SettingsComponent {
-  public activeTab = signal('permission');
+  public activeTab = signal('documents');
 }

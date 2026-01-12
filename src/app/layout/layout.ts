@@ -28,7 +28,6 @@ export class LayoutComponent {
         })
       )
       .subscribe((title) => this.pageTitle.set(title));
-    console.log('userService', this.userService.currentUser()?.permission);
   }
 
   logout() {

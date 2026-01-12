@@ -1,7 +1,5 @@
 <div>
   <h2>Document Management</h2>
-
-  <!-- Modern Upload document form -->
   <form (submit)="uploadDocument()" class="upload-form">
     <label class="file-upload-label" for="file-upload">
       <input id="file-upload" type="file" (change)="onFileSelected($event)" />
@@ -16,15 +14,29 @@
       <input type="text" placeholder="Enter file name" [value]="selectedFile()?.name" />
       <button type="submit" class="upload-button">Upload</button>
     </div>
+    <div class="document-type">
+      <div class="document-type-container">
+        <select class="doc-type-filter" (change)="selectDocumentType($event)">
+          @for (type of documentTypes; track type) {
+          <option [value]="type" [selected]="type === selectedType()">
+            {{ type }}
+          </option>
+          }
+        </select>
+      </div>
+    </div>
     }
   </form>
 
   <!-- Document list -->
   @if(documents().length > 0) {
-  <table>
+  <table class="document-table">
     <thead>
       <tr>
         <th>Document Name</th>
+        <th>Type</th>
+        <th>Updated By</th>
+        <th>Last Update</th>
         <th>Actions</th>
       </tr>
     </thead>
@@ -35,13 +47,16 @@
           @if(editingDocument()?.id === doc.id) {
           <input
             type="text"
-            [value]="editingDocument()?.name"
-            (input)="editingDocument.set({ id: doc.id, name: $event.target.value })"
+            [value]="editingDocument()?.title"
+            (input)="editingDocument.set({ id: doc.id, title: $event.target.value })"
           />
           } @else {
-          {{ doc.name }}
+          {{ doc.title }}
           }
         </td>
+        <td>{{ doc.type }}</td>
+        <td>{{ doc.updatedBy }}</td>
+        <td>{{ doc.lastUpdate }}</td>
         <td>
           @if(editingDocument()?.id === doc.id) {
           <button (click)="updateDocument()" class="save-button">Save</button>

@@ -33,9 +33,6 @@
 .tab-content {
   flex-grow: 1;
   padding: 20px;
-  border: 1px solid #ccc;
-  border-top: none;
-  border-radius: 0 0 5px 5px;
   overflow-y: auto;
 }
 

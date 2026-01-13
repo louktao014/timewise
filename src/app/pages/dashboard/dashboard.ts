@@ -1,8 +1,10 @@
+import { HttpClient } from '@angular/common/http';
 import {
   AfterViewInit,
   ChangeDetectionStrategy,
   Component,
   ElementRef,
+  inject,
   OnInit,
   viewChild,
 } from '@angular/core';
@@ -17,12 +19,25 @@ import { Chart } from 'chart.js/auto';
 export class DashboardComponent implements AfterViewInit, OnInit {
   private doughnutChartRef = viewChild<ElementRef>('doughnutChart');
   private barChartRef = viewChild<ElementRef>('barChart');
+  private http = inject(HttpClient);
 
   doughnutChart: any;
   barChart: any;
   ngOnInit(): void {
     this.createDoughnutChart();
     this.createBarChart();
+    this.testGet();
+  }
+
+  testGet() {
+    this.http.get<any[]>('http://localhost:3000/').subscribe({
+      next: (res) => {
+        console.log('testGet', res);
+      },
+      error: (err) => {
+        console.log('ERROR', err);
+      },
+    });
   }
 
   ngAfterViewInit(): void {

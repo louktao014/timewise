@@ -8,44 +8,32 @@
       <thead>
         <tr>
           <th>Name</th>
-          <th>Email</th>
-          <th>Phone</th>
-          <th>Job Title</th>
+          <th>Surname</th>
+          <th>Telephone</th>
+          <th>Status</th>
           <th>Actions</th>
         </tr>
       </thead>
       <tbody>
-        <tr>
-          <td>John Doe</td>
-          <td>john.doe@example.com</td>
-          <td>(555) 555-5555</td>
-          <td>Software Engineer</td>
-          <td>
-            <button class="action-btn">Edit</button>
-            <button class="action-btn delete-btn">Delete</button>
-          </td>
-        </tr>
-        <tr>
-          <td>Jane Smith</td>
-          <td>jane.smith@example.com</td>
-          <td>(555) 555-5556</td>
-          <td>Project Manager</td>
-          <td>
-            <button class="action-btn">Edit</button>
-            <button class="action-btn delete-btn">Delete</button>
-          </td>
-        </tr>
-        <tr>
-          <td>Peter Jones</td>
-          <td>peter.jones@example.com</td>
-          <td>(555) 555-5557</td>
-          <td>UX Designer</td>
-          <td>
-            <button class="action-btn">Edit</button>
-            <button class="action-btn delete-btn">Delete</button>
-          </td>
-        </tr>
+        @for (employee of employees(); track employee.id) {
+          <tr>
+            <td>{{ employee.name }}</td>
+            <td>{{ employee.surname }}</td>
+            <td>{{ employee.tel }}</td>
+            <td>{{ employee.status }}</td>
+            <td>
+              <button class="action-btn" (click)="selectedEmployee.set(employee)">Edit</button>
+              <button class="action-btn delete-btn">Delete</button>
+            </td>
+          </tr>
+        }
       </tbody>
     </table>
   </div>
 </div>
+
+<app-employee-detail 
+  [employee]="selectedEmployee()" 
+  (close)="selectedEmployee.set(null)"
+  (save)="saveEmployee($event)">
+</app-employee-detail>

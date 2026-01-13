@@ -1,0 +1,39 @@
+<dialog #dialog (close)="onClose()">
+  <div class="dialog-header">
+    <h2>Employee Details</h2>
+    <button (click)="onClose()">&times;</button>
+  </div>
+  <div class="dialog-body">
+    @if (editingEmployee(); as employee) {
+      <form #employeeForm="ngForm" (submit)="onSave()">
+        <div class="form-group">
+          <label for="name">Name</label>
+          <input type="text" id="name" name="name" [(ngModel)]="employee.name" required>
+        </div>
+        <div class="form-group">
+          <label for="surname">Surname</label>
+          <input type="text" id="surname" name="surname" [(ngModel)]="employee.surname" required>
+        </div>
+        <div class="form-group">
+          <label for="tel">Telephone</label>
+          <input type="tel" id="tel" name="tel" [(ngModel)]="employee.tel" required>
+        </div>
+        <div class="form-group">
+          <label for="address">Address</label>
+          <textarea id="address" name="address" [(ngModel)]="employee.address" required></textarea>
+        </div>
+        <div class="form-group">
+          <label for="status">Status</label>
+          <select id="status" name="status" [(ngModel)]="employee.status" required>
+            <option value="active">Active</option>
+            <option value="inactive">Inactive</option>
+          </select>
+        </div>
+        <div class="dialog-footer">
+            <button type="button" (click)="onClose()">Close</button>
+            <button type="submit">Save</button>
+        </div>
+      </form>
+    }
+  </div>
+</dialog>
